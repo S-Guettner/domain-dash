@@ -5,10 +5,9 @@ import user from '../../data/userModel'
 export const POST = async (req: NextRequest, res: NextResponse) => {
     const { email,password, userType } = await req.json();
 
-console.log(email)
 
     try {
-        const userCheck = await user.findOne({ email: "email" });
+        const userCheck = await user.findOne({ email: email });
         console.log(userCheck)
         if (!userCheck) {
             const newUser = await user.create({

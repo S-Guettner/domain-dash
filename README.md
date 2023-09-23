@@ -1,3 +1,3 @@
 TODO
 
-- [] new user duplication
+- [x] new user duplication
