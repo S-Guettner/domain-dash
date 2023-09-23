@@ -1,19 +1,28 @@
-'use client'
-import { useState } from 'react'
-import { signIn, signOut, useSession, getProviders, ClientSafeProvider, LiteralUnion } from 'next-auth/react'
-import connectionToDB from './DB/dbConnection'
+"use client";
+import { useState,useEffect } from "react";
+import Link from "next/link";
+import axios from 'axios'
 
 export default function Home() {
+  useEffect(() => {
+    const db = async () => {
+      try {
+        
 
 
-  const { data: session } = useSession()
+        const response = await axios.post('/api/dbconnect');
+        console.log(response)
+      } catch (err) {
+        console.log(err)
+      }
+    }
 
-  connectionToDB()
+    db()
+  }, [])
+
   return (
     <main className="flex ">
-      <button onClick={() => signIn()}>
-        <h1>SIGN IN</h1>
-      </button>
+      <Link href={"/registrierung"}>Sign in</Link>
     </main>
-  )
+  );
 }
