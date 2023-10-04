@@ -1,28 +1,34 @@
 import { NextRequest, NextResponse } from 'next/server';
-import mongoose from 'mongoose';
+
 import user from '../../data/userModel'
+import bcrypt from "bcrypt";
 
 export const POST = async (req: NextRequest, res: NextResponse) => {
     const { email,password, userType } = await req.json();
 
 
     try {
+        
         const userCheck = await user.findOne({ email: email });
-        console.log(userCheck)
+        
         if (!userCheck) {
+        
+            const hashedPassword = await bcrypt.hash(password, 10)
+            console.log(hashedPassword)
+
             const newUser = await user.create({
                 email: email,
-                password:password,
+                password:hashedPassword,
                 userType: userType,
             });
-/*             console.log(newUser);
-            console.log('User not in DB'); */
+        
             return NextResponse.json({ newUser });
+        
         } else {
-            console.log('User already in DB');
-            return NextResponse.json(userCheck)
+        
+            return NextResponse.json({message:"User already exists"})
+        
         }
-
 
     } catch (error) {
         console.log(error);
