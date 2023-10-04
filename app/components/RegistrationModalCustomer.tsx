@@ -16,7 +16,10 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
     return await signIn(provider, { callbackUrl });
   };
 
-  const [showPassword, setPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const showSVG = (
     <svg
       stroke="currentColor"
@@ -90,8 +93,8 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
     e.preventDefault();
 
     const result = await signIn("credentials", {
-      email: "test121212",
-      password: "test",
+      email: email,
+      password: password,
       callbackUrl: "http://localhost:3000/dashboard/",
       redirect: false,
     });
@@ -101,12 +104,19 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
     <main className="text-black border w-1/3 h-2/3">
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">email</label>
-        <input className="block border" type="text" name="email" id="email" />
+        <input
+          onChange={(e) => setEmail(e.target.value)}
+          className="block border"
+          type="text"
+          name="email"
+          id="email"
+        />
 
         <section className="flex">
           <div>
             <label htmlFor="password ">Passwort</label>
             <input
+            onChange={(e) => setPassword(e.target.value)}
               className="block border"
               type={showPassword ? "text" : "password"}
               name="password"
@@ -123,7 +133,7 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
           </div>
           <button
             className="m-2 w-full flex justify-center "
-            onClick={() => setPassword((prev) => !prev)}
+            onClick={() => setShowPassword((prev) => !prev)}
           >
             <div className="">{showPassword ? hideSVG : showSVG}</div>
           </button>
