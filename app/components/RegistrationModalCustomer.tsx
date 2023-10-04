@@ -96,7 +96,7 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
       email: email,
       password: password,
       callbackUrl: "http://localhost:3000/dashboard/",
-      redirect: false,
+      
     });
   };
 
