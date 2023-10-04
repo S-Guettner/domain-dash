@@ -1,6 +1,4 @@
-"use client";
-import { FC, useState } from "react";
-
+import { FC,useState } from "react";
 import {
   signIn,
   signOut,
@@ -9,16 +7,21 @@ import {
   ClientSafeProvider,
   LiteralUnion,
 } from "next-auth/react";
-interface RegistrationModalCustomerProps {}
 
-const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
-  const customSignIn = async (provider: string, callbackUrl: string) => {
+interface LoginModalCustomerProps {}
+
+const LoginModalCustomer: FC<LoginModalCustomerProps> = ({}) => {
+  
+    const customSignIn = async (provider: string, callbackUrl: string) => {
     return await signIn(provider, { callbackUrl });
   };
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const session = useSession()
+  console.log(session)
 
   const showSVG = (
     <svg
@@ -100,6 +103,7 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
     });
   };
 
+
   return (
     <main className="text-black border w-1/3 h-2/3">
       <form onSubmit={handleSubmit}>
@@ -123,13 +127,6 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
               id="password"
             />
 
-            <label htmlFor="passwordCheck ">Passwort wiederholen</label>
-            <input
-              className="block border"
-              type={showPassword ? "text" : "password"}
-              name="passwordCheck"
-              id="passwordCheck"
-            />
           </div>
           <button
             className="m-2 w-full flex justify-center "
@@ -139,7 +136,7 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
           </button>
         </section>
         <button onClick={handleSignIn} className="border p-2 rounded-2xl m-5">
-          Registrieren
+          Anmelden
         </button>
       </form>
       <section className="text-center">
@@ -152,13 +149,14 @@ const registrationModalCustomer: FC<RegistrationModalCustomerProps> = ({}) => {
           }
         >
           <div className="flex gap-3 items-center border p-2 my-4">
-            <p>Registrieren mit Google</p>
+            <p>Anmelden mit Google</p>
             {googleSVG}
           </div>
         </button>
       </section>
+      <button onClick={() => signOut()}>SIGN OUT</button>
     </main>
-  );
+  )
 };
 
-export default registrationModalCustomer;
+export default LoginModalCustomer;

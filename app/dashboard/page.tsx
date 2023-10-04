@@ -11,13 +11,13 @@ const page: FC<pageProps> = ({}) => {
   console.log(session?.user?.email)
   const router = useRouter();
 
- /*  useEffect(() => {
-    if(!session){
-      router.push('/')
-    }
-  },[session]) */
-
   useEffect(() => {
+    if(session){
+      console.log(session)
+    }
+  },[session])
+
+/*   useEffect(() => {
     const newUser = async () => {
 
         try {
@@ -31,7 +31,7 @@ const page: FC<pageProps> = ({}) => {
       newUser()
 
     }
-  }, [session])
+  }, [session]) */
 
   return (
     <main>

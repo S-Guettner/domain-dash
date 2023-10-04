@@ -1,5 +1,5 @@
 import { FC } from "react";
-import RegistrationModalCustomer from "../components/RegistrationModalCustomer";
+import RegistrationModalCustomer from "../components/customer/RegistrationModalCustomer";
 import NavbarHero from "../components/NavbarHero/NavbarHero";
 interface pageProps {}
 
